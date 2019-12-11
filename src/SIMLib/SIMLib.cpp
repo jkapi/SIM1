@@ -1,4 +1,5 @@
 #include "SIMLib.h"
+#include "MotorControl.h"
 
 #define NOLINE 0
 #define SENSOR1 22
@@ -15,8 +16,11 @@
 SIMLib::SIMLib(){
 	
 }
-void SIMLib::driveMotor(int Motor, int Speed, int Action){
+
+void SIMLib::init() {
+    Motors.init();
 }
+
 int SIMLib::readSensor(int pin){
 	return 0;
 }

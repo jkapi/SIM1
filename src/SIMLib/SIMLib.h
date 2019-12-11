@@ -2,13 +2,14 @@
 #define SIMLib_h
 
 #include "Arduino.h"
+#include "MotorControl.h"
 
 class SIMLib
 {
   public:
     SIMLib();
+    void init();
   private:
-	void driveMotor(int Motor, int Speed, int Action);
 	int readSensor(int pin);
 	bool isLine();
 };
