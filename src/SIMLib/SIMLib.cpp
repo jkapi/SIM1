@@ -1,11 +1,11 @@
 #include "SIMLib.h"
 
 #define NOLINE 0
-#define SENSOR01 1
-#define SENSOR02 2
-#define SENSOR03 3
-#define SENSOR04 4
-#define SENSOR05 5
+#define SENSOR1 22
+#define SENSOR2 23
+#define SENSOR3 24
+#define SENSOR4 25
+#define SENSOR5 26
 
 #define NOCOMMAND 0
 #define PAUZE 1
@@ -20,9 +20,10 @@ void SIMLib::driveMotor(int Motor, int Speed, int Action){
 int SIMLib::readSensor(int pin){
 	return 0;
 }
-int SIMLib::isLine(){
+bool SIMLib::isLine(){
 	return NOLINE;
 }
+/*
 void SIMLib::forward(){
 	
 }
@@ -40,4 +41,4 @@ int SIMLib::isCommand(){
 }
 void SIMLib::driveParkour(){
 
-}
+}*/

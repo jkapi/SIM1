@@ -11,7 +11,7 @@ class SIMLib
 	void driveMotor(int Motor, int Speed, int Action);
 	int readSensor(int pin);
 	bool isLine();
-	void control();
 };
 
+extern SIMLib Robot;
 #endif
