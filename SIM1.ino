@@ -2,7 +2,10 @@
 
 void setup() {
   // put your setup code here, to run once:
-  
+  Robot.init();
+  Motors.drive(RIGHT | LEFT, 255, FORWARD);
+  delay(1000);
+  Motors.drive(RIGHT | LEFT, 0, BREAK);
 }
 
 void loop() {
