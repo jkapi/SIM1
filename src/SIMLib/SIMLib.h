@@ -12,7 +12,13 @@ class SIMLib
   private:
 	int readSensor(int pin);
 	bool isLine();
-};
+	void forward();
+	void turnLeft();
+	void turnRight();
+	void handleLine();
+	int isCommand();
+	void driveParkour();
+}
 
 extern SIMLib Robot;
 #endif
