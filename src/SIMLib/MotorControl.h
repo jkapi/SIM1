@@ -9,7 +9,7 @@
 #define FORWARD   1
 #define BACKWARD -1
 #define GO        1
-#define BREAK     0
+#define BRAKE     0
 
 class MotorControl
 {
@@ -17,6 +17,7 @@ class MotorControl
     MotorControl();
     void init();
     void drive(byte Motor, int Speed, int Action);
+    void brake(byte Motor, bool Brake);
     
   private:
   

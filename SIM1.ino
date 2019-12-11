@@ -5,7 +5,7 @@ void setup() {
   Robot.init();
   Motors.drive(RIGHT | LEFT, 255, FORWARD);
   delay(1000);
-  Motors.drive(RIGHT | LEFT, 0, BREAK);
+  Motors.drive(RIGHT | LEFT, 0, BRAKE);
 }
 
 void loop() {
