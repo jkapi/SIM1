@@ -12,7 +12,7 @@ class SIMLib
   private:
 	int readSensor(int pin);
 	bool isLine();
-	void forward();
+	void forward(int Speed, int Time);
 	void turnLeft();
 	void turnRight();
 	void handleLine();

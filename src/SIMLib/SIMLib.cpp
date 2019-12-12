@@ -27,9 +27,11 @@ int SIMLib::readSensor(int pin){
 bool SIMLib::isLine(){
 	return NOLINE;
 }
-/*
-void SIMLib::forward(){
-	
+
+void SIMLib::forward(int Speed, int Time){
+	Motors.drive(RIGHT | LEFT, Speed, FORWARD);
+	delay(Time);
+	Motors.drive(RIGHT | LEFT, 0, BRAKE);
 }
 void SIMLib::turnLeft(){
 	
@@ -45,4 +47,4 @@ int SIMLib::isCommand(){
 }
 void SIMLib::driveParkour(){
 
-}*/
+}
