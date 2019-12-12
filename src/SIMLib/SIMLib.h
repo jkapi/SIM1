@@ -10,6 +10,8 @@ class SIMLib
     SIMLib();
     void init();
 	void forward(int Speed, int Time);
+	void driveParkour();
+
 
   private:
 	int readSensor(int pin);
@@ -18,7 +20,6 @@ class SIMLib
 	void turnRight();
 	void handleLine();
 	int isCommand();
-	void driveParkour();
 };
 
 extern SIMLib Robot;
