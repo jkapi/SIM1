@@ -22,7 +22,12 @@ void SIMLib::init() {
 }
 
 int SIMLib::readSensor(int pin){
-	return 0;
+	if (digitalRead(pin) == LOW){
+		return 1;
+	}
+	else{
+		return 0;
+	}
 }
 bool SIMLib::isLine(){
 	return NOLINE;

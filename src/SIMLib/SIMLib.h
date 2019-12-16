@@ -9,13 +9,14 @@ class SIMLib
   public:
     SIMLib();
     void init();
-    void forward(int Speed, int Time);
+    void driveParkour();
+
+
   private:
 	int readSensor(int pin);
 	bool isLine();
 	void handleLine();
 	int isCommand();
-	void driveParkour();
 };
 
 extern SIMLib Robot;
