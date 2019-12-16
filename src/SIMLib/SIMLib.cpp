@@ -28,17 +28,12 @@ bool SIMLib::isLine(){
 	return NOLINE;
 }
 
-void SIMLib::forward(int Speed, int Time){
+void SIMLib::forward(int Speed, int Time) {
 	Motors.drive(RIGHT | LEFT, Speed, FORWARD);
 	delay(Time);
 	Motors.drive(RIGHT | LEFT, 0, BRAKE);
 }
-void SIMLib::turnLeft(){
-	
-}
-void SIMLib::turnRight(){
-	
-}
+
 void SIMLib::handleLine(){
 
 }

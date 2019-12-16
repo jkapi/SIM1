@@ -9,13 +9,10 @@ class SIMLib
   public:
     SIMLib();
     void init();
-	void forward(int Speed, int Time);
-
+    void forward(int Speed, int Time);
   private:
 	int readSensor(int pin);
 	bool isLine();
-	void turnLeft();
-	void turnRight();
 	void handleLine();
 	int isCommand();
 	void driveParkour();
