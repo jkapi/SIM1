@@ -10,7 +10,7 @@ class SIMLib
     SIMLib();
     void init();
     void driveParkour();
-
+    void forward(int Speed, int Time);
 
   private:
 	int readSensor(int pin);
