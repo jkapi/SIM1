@@ -19,25 +19,43 @@ SIMLib::SIMLib(){
 
 void SIMLib::init() {
     Motors.init();
+	sensorsInit();
+}
+void SIMLib::sensorsInit() {
+    pinMode(SENSOR1,INPUT);
+	pinMode(SENSOR2,INPUT);
+    pinMode(SENSOR3,INPUT);
+    pinMode(SENSOR4,INPUT);
+    pinMode(SENSOR5,INPUT);
+
 }
 
-int SIMLib::readSensor(int pin){
-	if (digitalRead(pin) == LOW){
-		return 1;
-	}
-	else{
-		return 0;
-	}
+bool SIMLib::readSensor(int pin){
+	return !digitalRead(pin);
 }
-bool SIMLib::isLine(){
+int SIMLib::isLine(){
+	if(readSensor(SENSOR1)){
+		return SENSOR1;
+	}else if(readSensor(SENSOR5)){
+		return SENSOR5;
+	}
 	return NOLINE;
 }
 void SIMLib::handleLine(){
+	if(isLine() == SENSOR1){
+		Motors.turn(LEFT);		
+	}else if(isLine() == SENSOR5){
+		Motors.turn(RIGHT);
+	}else{
+		Motors.forward();
+	}
+
 
 }
 int SIMLib::isCommand(){
 	return NOCOMMAND;
 }
 void SIMLib::driveParkour(){
-
+	handleLine();
+	delay(20);
 }

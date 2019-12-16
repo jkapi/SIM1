@@ -11,10 +11,11 @@ class SIMLib
     void init();
     void driveParkour();
   private:
-	int readSensor(int pin);
-	bool isLine();
+	bool readSensor(int pin);
+	int isLine();
 	void handleLine();
 	int isCommand();
+	void sensorsInit();
 };
 
 extern SIMLib Robot;
