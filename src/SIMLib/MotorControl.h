@@ -18,9 +18,14 @@ class MotorControl
     void init();
     void drive(byte Motor, int Speed, int Action);
     void brake(byte Motor, bool Brake);
+    void forward(int Speed = 127);
+    void backward(int Speed = 127);
+    void steer(int Direction, int Offset = 1024, int Speed = 127);
+    void turn(int Direction, int TurnSpeed = 127);
     
   private:
-  
+    void driveLeft(int Speed, int Action);
+    void driveRight(int Speed, int Action);
 };
 
 extern MotorControl Motors;
