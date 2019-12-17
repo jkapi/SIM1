@@ -34,18 +34,27 @@ bool SIMLib::readSensor(int pin){
 	return !digitalRead(pin);
 }
 int SIMLib::isLine(){
-	if(readSensor(SENSOR1)){
-		return SENSOR1;
-	}else if(readSensor(SENSOR5)){
-		return SENSOR5;
-	}
-	return NOLINE;
+	
 }
 void SIMLib::handleLine(){
-	if(isLine() == SENSOR1){
-		Motors.turn(LEFT);		
-	}else if(isLine() == SENSOR5){
-		Motors.turn(RIGHT);
+	if(readSensor(SENSOR2)){
+		Motors.turn(LEFT,255);		
+	}else if(readSensor(SENSOR4)){
+		Motors.turn(RIGHT,255);
+	}else if(readSensor(SENSOR5)){
+		while(readSensor(SENSOR3)){
+			Motors.forward();
+		}
+		while(!readSensor(SENSOR3)){
+			Motors.turn(RIGHT,255);
+		}
+	}else if(readSensor(SENSOR1)){
+		while(readSensor(SENSOR3)){
+			Motors.forward();
+		}
+		while(!readSensor(SENSOR3)){
+			Motors.turn(LEFT,255);
+		}	
 	}else{
 		Motors.forward();
 	}
@@ -57,5 +66,4 @@ int SIMLib::isCommand(){
 }
 void SIMLib::driveParkour(){
 	handleLine();
-	delay(20);
 }
