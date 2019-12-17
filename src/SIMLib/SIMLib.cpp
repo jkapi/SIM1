@@ -39,43 +39,35 @@ int SIMLib::isLine(){
 }
 void SIMLib::handleLine(){
 	if(readSensor(SENSOR2)){
-		time = millis();
 		while(readSensor(SENSOR3)&&!readSensor(SENSOR4)){
-			Motors.forward();
+			Motors.forward(255);
 		}
 		while(!readSensor(SENSOR3)&&!readSensor(SENSOR4)){
-			Motors.turn(LEFT);
+			Motors.turn(LEFT,255);
 		}
 	}else if(readSensor(SENSOR4)){
-		time = millis();
 		while(readSensor(SENSOR3)&&!readSensor(SENSOR2)){
-			Motors.forward();
+			Motors.forward(255);
 		}
 		while(!readSensor(SENSOR3)&&!readSensor(SENSOR2)){
-			Motors.turn(RIGHT);
+			Motors.turn(RIGHT,255);
 		}
 	}else if(readSensor(SENSOR5)){
-		time = millis();
 		while(readSensor(SENSOR3)){
-			Motors.forward();
+			Motors.forward(255);
 		}
 		while(!readSensor(SENSOR3)){
-			Motors.turn(RIGHT);
+			Motors.turn(RIGHT,255);
 		}
 	}else if(readSensor(SENSOR1)){
-		time = millis();
 		while(readSensor(SENSOR3)){
-			Motors.forward();
+			Motors.forward(255);
 		}
 		while(!readSensor(SENSOR3)){
-			Motors.turn(LEFT);
+			Motors.turn(LEFT,255);
 		}	
 	}else if(readSensor(SENSOR3)){
-		if((millis() - time)>500){
-			Motors.forward(255);
-		}else{
-			Motors.forward(80);
-		}
+		Motors.forward(255);
 	}else{
 		Motors.forward(80);
 	}
