@@ -13,6 +13,7 @@
 #define START 2
 #define END 3
 
+unsigned long time = 0;
 SIMLib::SIMLib(){
 	
 }
@@ -38,25 +39,45 @@ int SIMLib::isLine(){
 }
 void SIMLib::handleLine(){
 	if(readSensor(SENSOR2)){
-		Motors.turn(LEFT,255);		
+		time = millis();
+		while(readSensor(SENSOR3)&&!readSensor(SENSOR4)){
+			Motors.forward();
+		}
+		while(!readSensor(SENSOR3)&&!readSensor(SENSOR4)){
+			Motors.turn(LEFT);
+		}
 	}else if(readSensor(SENSOR4)){
-		Motors.turn(RIGHT,255);
+		time = millis();
+		while(readSensor(SENSOR3)&&!readSensor(SENSOR2)){
+			Motors.forward();
+		}
+		while(!readSensor(SENSOR3)&&!readSensor(SENSOR2)){
+			Motors.turn(RIGHT);
+		}
 	}else if(readSensor(SENSOR5)){
+		time = millis();
 		while(readSensor(SENSOR3)){
 			Motors.forward();
 		}
 		while(!readSensor(SENSOR3)){
-			Motors.turn(RIGHT,255);
+			Motors.turn(RIGHT);
 		}
 	}else if(readSensor(SENSOR1)){
+		time = millis();
 		while(readSensor(SENSOR3)){
 			Motors.forward();
 		}
 		while(!readSensor(SENSOR3)){
-			Motors.turn(LEFT,255);
+			Motors.turn(LEFT);
 		}	
+	}else if(readSensor(SENSOR3)){
+		if((millis() - time)>500){
+			Motors.forward(255);
+		}else{
+			Motors.forward(80);
+		}
 	}else{
-		Motors.forward();
+		Motors.forward(80);
 	}
 
 
