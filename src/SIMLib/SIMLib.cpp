@@ -69,7 +69,7 @@ void SIMLib::handleLine(){
 	}else if(readSensor(SENSOR3)){
 		Motors.forward(255);
 	}else{
-		Motors.forward(80);
+		Motors.forward(200);
 	}
 
 
