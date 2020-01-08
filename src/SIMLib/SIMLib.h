@@ -18,5 +18,7 @@ class SIMLib
 	void sensorsInit();
 };
 
+void kill();
+
 extern SIMLib Robot;
 #endif

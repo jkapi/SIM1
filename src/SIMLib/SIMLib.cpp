@@ -8,6 +8,8 @@
 #define SENSOR4 25
 #define SENSOR5 26
 
+#define STOPBTN 21
+
 #define NOCOMMAND 0
 #define PAUZE 1
 #define START 2
@@ -21,6 +23,7 @@ SIMLib::SIMLib(){
 void SIMLib::init() {
     Motors.init();
 	sensorsInit();
+    attachInterrupt(digitalPinToInterrupt(STOPBTN), kill, RISING);
 }
 void SIMLib::sensorsInit() {
     pinMode(SENSOR1,INPUT);
@@ -38,6 +41,7 @@ int SIMLib::isLine(){
 	
 }
 void SIMLib::handleLine(){
+
 	if(readSensor(SENSOR2)){
 		while(readSensor(SENSOR3)&&!readSensor(SENSOR4)){
 			Motors.forward(255);
@@ -71,9 +75,13 @@ void SIMLib::handleLine(){
 	}else{
 		Motors.forward(80);
 	}
-
-
 }
+
+void kill() {
+	Motors.brake(LEFT | RIGHT, true);
+    while(1) {}
+}
+
 int SIMLib::isCommand(){
 	return NOCOMMAND;
 }
