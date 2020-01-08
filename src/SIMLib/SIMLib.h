@@ -12,7 +12,8 @@ class SIMLib
     void driveParkour();
   private:
 	bool readSensor(int pin);
-	int isLine();
+	void findLineRight();	
+	void findLineLeft();
 	void handleLine();
 	int isCommand();
 	void sensorsInit();

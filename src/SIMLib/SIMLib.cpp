@@ -37,43 +37,36 @@ void SIMLib::sensorsInit() {
 bool SIMLib::readSensor(int pin){
 	return !digitalRead(pin);
 }
-int SIMLib::isLine(){
-	
+void SIMLib::findLineLeft(){
+	while(readSensor(SENSOR3)){
+		Motors.forward(255);
+	}
+	while(!readSensor(SENSOR3)){
+		Motors.turn(LEFT,255);
+	}
+}
+void SIMLib::findLineRight(){
+	while(readSensor(SENSOR3)){
+		Motors.forward(255);
+	}
+	while(!readSensor(SENSOR3)){
+		Motors.turn(RIGHT,255);
+	}
 }
 void SIMLib::handleLine(){
 
 	if(readSensor(SENSOR2)){
-		while(readSensor(SENSOR3)&&!readSensor(SENSOR4)){
-			Motors.forward(255);
-		}
-		while(!readSensor(SENSOR3)&&!readSensor(SENSOR4)){
-			Motors.turn(LEFT,255);
-		}
+		findLineLeft();
 	}else if(readSensor(SENSOR4)){
-		while(readSensor(SENSOR3)&&!readSensor(SENSOR2)){
-			Motors.forward(255);
-		}
-		while(!readSensor(SENSOR3)&&!readSensor(SENSOR2)){
-			Motors.turn(RIGHT,255);
-		}
+		findLineRight();
 	}else if(readSensor(SENSOR5)){
-		while(readSensor(SENSOR3)){
-			Motors.forward(255);
-		}
-		while(!readSensor(SENSOR3)){
-			Motors.turn(RIGHT,255);
-		}
+		findLineRight();
 	}else if(readSensor(SENSOR1)){
-		while(readSensor(SENSOR3)){
-			Motors.forward(255);
-		}
-		while(!readSensor(SENSOR3)){
-			Motors.turn(LEFT,255);
-		}	
+		findLineLeft();
 	}else if(readSensor(SENSOR3)){
 		Motors.forward(255);
 	}else{
-		Motors.forward(80);
+		Motors.forward(200);
 	}
 }
 
