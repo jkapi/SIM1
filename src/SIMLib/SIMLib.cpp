@@ -23,7 +23,11 @@ SIMLib::SIMLib(){
 void SIMLib::init() {
     Motors.init();
 	sensorsInit();
+	
     attachInterrupt(digitalPinToInterrupt(STOPBTN), kill, RISING);
+	if (digitalRead(STOPBTN)) {
+		kill();
+	}
 }
 void SIMLib::sensorsInit() {
     pinMode(SENSOR1,INPUT);
@@ -38,7 +42,7 @@ bool SIMLib::readSensor(int pin){
 	return !digitalRead(pin);
 }
 void SIMLib::findLineLeft(){
-	while(readSensor(SENSOR3)){
+	if (readSensor(SENSOR3)){
 		Motors.forward(255);
 	}
 	while(!readSensor(SENSOR3)){
@@ -46,7 +50,7 @@ void SIMLib::findLineLeft(){
 	}
 }
 void SIMLib::findLineRight(){
-	while(readSensor(SENSOR3)){
+	if(readSensor(SENSOR3)){
 		Motors.forward(255);
 	}
 	while(!readSensor(SENSOR3)){
@@ -80,4 +84,54 @@ int SIMLib::isCommand(){
 }
 void SIMLib::driveParkour(){
 	handleLine();
+<<<<<<< Updated upstream
 }
+=======
+}
+
+void SIMLib::isCommand()
+{
+	const bool stoptest = false;
+	if (millis() > 2) {
+	  if (readSensor(SENSOR1) && readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5))
+	  {
+		  Motors.forward(110);
+		  delay(350);
+		  if (stoptest || (readSensor(SENSOR1) && readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5)))
+		  {
+			  delay(375);
+			  commandState = END;
+		  }
+		  else
+		  {
+			  commandState = PAUZE;
+		  }
+	  }
+	} else {
+		// kijk of je op het startteken zit of niet, hoeft wss niet eens)
+	}
+}
+
+void SIMLib::handleCommand()
+{
+
+  if (commandState == NOCOMMAND || commandState == START)
+  {
+    //green LED HIGH
+    driveParkour();
+  }
+  else if (commandState == PAUZE)
+  {
+    //blue LED HIGH
+    Motors.brake(LEFT | RIGHT, true);
+    delay(5000);
+    commandState = NOCOMMAND;
+    Motors.brake(LEFT | RIGHT, false);
+  }
+  while (commandState == END)
+  {
+    //red LED HIGH
+	kill();
+  }
+}
+>>>>>>> Stashed changes
