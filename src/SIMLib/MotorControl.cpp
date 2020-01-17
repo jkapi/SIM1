@@ -10,67 +10,87 @@
 #define M_RIGHT_CURRENT A0
 #define M_LEFT_CURRENT A1
 
+int MotorControl::speedLeft = 0;
+int MotorControl::speedRight = 0;
+
 MotorControl::MotorControl() {
     // Initialize on instancing. Probably never used, but still.
     init();
 }
 
-
 void MotorControl::init() {
-  pinMode(M_RIGHT_DIR, OUTPUT);
-  pinMode(M_LEFT_DIR, OUTPUT);
-  pinMode(M_RIGHT_PWM, OUTPUT);
-  pinMode(M_LEFT_PWM, OUTPUT);
-  pinMode(M_RIGHT_BRK, OUTPUT);
-  pinMode(M_LEFT_BRK, OUTPUT);
-  
-  // Break on both motors
-  digitalWrite(M_RIGHT_BRK, HIGH);
-  digitalWrite(M_LEFT_BRK, HIGH);
-  
-  // Set direction to forward
-  digitalWrite(M_RIGHT_DIR, LOW);
-  digitalWrite(M_LEFT_DIR, HIGH);
-  
-  // Set speed to standing still
-  analogWrite(M_RIGHT_PWM, 0);
-  analogWrite(M_LEFT_PWM, 0);
+    // Set pinModes
+    pinMode(M_RIGHT_DIR, OUTPUT);
+    pinMode(M_LEFT_DIR, OUTPUT);
+    pinMode(M_RIGHT_PWM, OUTPUT);
+    pinMode(M_LEFT_PWM, OUTPUT);
+    pinMode(M_RIGHT_BRK, OUTPUT);
+    pinMode(M_LEFT_BRK, OUTPUT);
+
+    // Break on both motors
+    digitalWrite(M_RIGHT_BRK, HIGH);
+    digitalWrite(M_LEFT_BRK, HIGH);
+
+    // Set direction to forward
+    digitalWrite(M_RIGHT_DIR, LOW);
+    digitalWrite(M_LEFT_DIR, HIGH);
+    
+    // Init speed variables
+    MotorControl::speedRight = 0;
+    MotorControl::speedLeft = 0;
+
+    // Set speed to standing still
+    analogWrite(M_RIGHT_PWM, 0);
+    analogWrite(M_LEFT_PWM, 0);
 }
 
 void MotorControl::driveLeft(int Speed, int Action) {
+    int oldSpeed = speedLeft;
     switch (Action) {
       case FORWARD:
         digitalWrite(M_LEFT_DIR, HIGH);
         analogWrite(M_LEFT_PWM, Speed);
         digitalWrite(M_LEFT_BRK, LOW);
+        speedLeft = Speed;
         break;
       case BACKWARD:
         digitalWrite(M_LEFT_DIR, LOW);
         analogWrite(M_LEFT_PWM, Speed);
         digitalWrite(M_LEFT_BRK, LOW);
+        speedLeft = -Speed;
         break;
       default:
         analogWrite(M_LEFT_PWM, 0);
         digitalWrite(M_LEFT_BRK, HIGH);
+        speedLeft = 0;
     }
-    
+    if (speedLeft != oldSpeed) {
+        Leds.showSpeedLeft(speedLeft);
+    }
 }
 
 void MotorControl::driveRight(int Speed, int Action) {
+    int oldSpeed = speedRight;
     switch (Action) {
       case FORWARD:
         digitalWrite(M_RIGHT_DIR, LOW);
         analogWrite(M_RIGHT_PWM, Speed);
         digitalWrite(M_RIGHT_BRK, LOW);
+        speedRight = Speed;
         break;
       case BACKWARD:
         digitalWrite(M_RIGHT_DIR, HIGH);
         analogWrite(M_RIGHT_PWM, Speed);
         digitalWrite(M_RIGHT_BRK, LOW);
+        speedRight = -Speed;
         break;
       default:
         analogWrite(M_RIGHT_PWM, 0);
         digitalWrite(M_RIGHT_BRK, HIGH);
+        speedRight = 0;
+    }
+    if (speedRight != oldSpeed) {
+        Leds.showSpeedRight(speedRight);
     }
 }
 

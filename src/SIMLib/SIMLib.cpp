@@ -1,5 +1,6 @@
 #include "SIMLib.h"
 #include "MotorControl.h"
+#include "LedControl.h"
 
 #define NOLINE 0
 #define SENSOR1 22
@@ -24,7 +25,8 @@ SIMLib::SIMLib(){
 void SIMLib::init() {
     Motors.init();
 	sensorsInit();
-	
+    Leds.init();
+    
     attachInterrupt(digitalPinToInterrupt(STOPBTN), kill, RISING);
 	if (digitalRead(STOPBTN)) {
 		kill();
@@ -77,6 +79,7 @@ void SIMLib::handleLine(){
 
 void SIMLib::kill() {
 	Motors.brake(LEFT | RIGHT, true);
+    Leds.error();
     while(1) {}
 }
 
@@ -114,21 +117,19 @@ void SIMLib::handleCommand()
 
   if (commandState == NOCOMMAND || commandState == START)
   {
-    //green LED HIGH
     driveParkour();
   }
   else if (commandState == PAUZE)
   {
-    //blue LED HIGH
     Motors.brake(LEFT | RIGHT, true);
-    delay(5000);
+    Leds.pause();
     commandState = NOCOMMAND;
     Motors.brake(LEFT | RIGHT, false);
   }
   while (commandState == END)
   {
-    //red LED HIGH
-	kill();
+	Motors.brake(LEFT | RIGHT, true);
+    Leds.stop();
   }
 }
 

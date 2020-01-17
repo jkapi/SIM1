@@ -2,6 +2,7 @@
 #define SIMLib_Motor_h
 
 #include "Arduino.h"
+#include "LedControl.h"
 
 #define LEFT 1
 #define RIGHT 2
@@ -24,6 +25,9 @@ class MotorControl
     void turn(int Direction, int TurnSpeed = 127);
     
   private:
+    static int speedLeft;
+    static int speedRight;
+    
     void driveLeft(int Speed, int Action);
     void driveRight(int Speed, int Action);
 };
