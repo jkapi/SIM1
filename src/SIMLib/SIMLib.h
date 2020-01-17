@@ -11,6 +11,7 @@ class SIMLib
     void init();
     void isCommand();
 	void handleCommand();
+	static void kill();
 	
   private:
 	bool readSensor(int pin);
@@ -19,7 +20,7 @@ class SIMLib
     void driveParkour();
 	void handleLine();
 	void sensorsInit();
-	void Kill();	
+		
 };
 
 extern SIMLib Robot;

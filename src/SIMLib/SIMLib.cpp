@@ -24,7 +24,7 @@ SIMLib::SIMLib(){
 void SIMLib::init() {
     Motors.init();
 	sensorsInit();
-    //attachInterrupt(digitalPinToInterrupt(STOPBTN), Kill, RISING);
+    attachInterrupt(digitalPinToInterrupt(STOPBTN), kill, RISING);
 }
 void SIMLib::sensorsInit() {
     pinMode(SENSOR1,INPUT);
@@ -71,7 +71,7 @@ void SIMLib::handleLine(){
 	}
 }
 
-void SIMLib::Kill() {
+void SIMLib::kill() {
 	Motors.brake(LEFT | RIGHT, true);
     while(1) {}
 }
@@ -82,21 +82,9 @@ void SIMLib::driveParkour(){
 
 void SIMLib::isCommand()
 {
-  if (readSensor(SENSOR1)readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5))
+  if (readSensor(SENSOR1) && readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5))
   {
-    delay(500);
-    if (readSensor(SENSOR1)readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5))
-    {
-      commandState = END;
-    }
-    else
-    {
-      commandState = PAUZE;
-    }
-  }
-  else
-  {  
-  commandState = NOCOMMAND;
+    commandState = PAUZE;
   }
 }
 
@@ -111,17 +99,14 @@ void SIMLib::handleCommand()
   else if (commandState == PAUZE)
   {
     //blue LED HIGH
-    Motors.brake(LEFT , true);
-	Motors.brake(RIGHT , true);
+    Motors.brake(LEFT | RIGHT, true);
     delay(5000);
     commandState = NOCOMMAND;
-	Motors.brake(LEFT , false);
-	Motors.brake(RIGHT , false);
+    Motors.brake(LEFT | RIGHT, false);
   }
   while (commandState == END)
   {
     //red LED HIGH
-    Motors.brake(LEFT , true);
-	Motors.brake(RIGHT , true);
+	kill();
   }
 }
