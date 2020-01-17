@@ -16,6 +16,7 @@
 #define END 3
 
 unsigned long time = 0;
+int commandState = START;
 SIMLib::SIMLib(){
 	
 }
@@ -74,20 +75,16 @@ void SIMLib::handleLine(){
 	}
 }
 
-void kill() {
+void SIMLib::kill() {
 	Motors.brake(LEFT | RIGHT, true);
     while(1) {}
 }
 
-int SIMLib::isCommand(){
-	return NOCOMMAND;
-}
 void SIMLib::driveParkour(){
 	handleLine();
-<<<<<<< Updated upstream
+
 }
-=======
-}
+
 
 void SIMLib::isCommand()
 {
@@ -134,4 +131,5 @@ void SIMLib::handleCommand()
 	kill();
   }
 }
->>>>>>> Stashed changes
+
+
