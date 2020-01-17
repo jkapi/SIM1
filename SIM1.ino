@@ -8,9 +8,9 @@ void setup() {
 
 void loop()
 {
-  if (millis() > 500)
-  {
+ 
+  
     Robot.isCommand();
-  }
+ 
   Robot.handleCommand();
 }

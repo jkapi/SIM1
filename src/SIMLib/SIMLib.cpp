@@ -82,10 +82,10 @@ void SIMLib::driveParkour(){
 
 void SIMLib::isCommand()
 {
-  if (digitalRead(SENSOR1) == HIGH && digitalRead(SENSOR2) == HIGH && digitalRead(SENSOR4) == HIGH && digitalRead(SENSOR5) == HIGH)
+  if (readSensor(SENSOR1)readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5))
   {
     delay(500);
-    if (digitalRead(SENSOR1) == HIGH && digitalRead(SENSOR2) == HIGH && digitalRead(SENSOR4) == HIGH && digitalRead(SENSOR5) == HIGH)
+    if (readSensor(SENSOR1)readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5))
     {
       commandState = END;
     }
@@ -94,7 +94,10 @@ void SIMLib::isCommand()
       commandState = PAUZE;
     }
   }
+  else
+  {  
   commandState = NOCOMMAND;
+  }
 }
 
 void SIMLib::handleCommand()
