@@ -99,22 +99,26 @@ void SIMLib::isCommand()
 
 void SIMLib::handleCommand()
 {
-  if (commandState == NOCOMMAND)
+	Serial.println(commandState);
+  if (commandState == NOCOMMAND || commandState == START)
   {
     //green LED HIGH
-	Motors.forward(200);
     driveParkour();
   }
   else if (commandState == PAUZE)
   {
     //blue LED HIGH
-    Kill();
+    Motors.brake(LEFT , true);
+	Motors.brake(RIGHT , true);
     delay(5000);
     commandState = NOCOMMAND;
+	Motors.brake(LEFT , false);
+	Motors.brake(RIGHT , false);
   }
   while (commandState == END)
   {
     //red LED HIGH
-    Kill();
+    Motors.brake(LEFT , true);
+	Motors.brake(RIGHT , true);
   }
 }

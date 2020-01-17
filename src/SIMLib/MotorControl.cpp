@@ -103,10 +103,10 @@ void MotorControl::drive(byte Motor, int Speed, int Action) {
  * Brake = If a motor is breaking or not, defaults to true
  */
 void MotorControl::brake(byte Motor, bool Brake) {
-    if (Motor == RIGHT) {
+    if (Motor & RIGHT) {
         digitalWrite(M_RIGHT_BRK, Brake);
     }
-    if (Motor == LEFT) {
+    if (Motor & LEFT) {
         digitalWrite(M_LEFT_BRK, Brake);
     }
 }
