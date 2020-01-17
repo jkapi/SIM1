@@ -6,11 +6,7 @@ void setup() {
   Robot.init();
 }
 
-void loop()
-{
-  if (millis() > 500)
-  {
-    Robot.isCommand();
-  }
-  Robot.handleCommand();
+void loop() {
+  // put your main code here, to run repeatedly:
+  Robot.driveParkour();
 }
