@@ -91,15 +91,15 @@ void SIMLib::driveParkour(){
 
 void SIMLib::isCommand()
 {
-	const bool stoptest = false;
+	const bool stoptest = true;
 	if (millis() > 2) {
 	  if (readSensor(SENSOR1) && readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5))
 	  {
 		  Motors.forward(110);
-		  delay(350);
+		  delay(250);
 		  if (stoptest || (readSensor(SENSOR1) && readSensor(SENSOR2) && readSensor(SENSOR4) && readSensor(SENSOR5)))
 		  {
-			  delay(375);
+			  delay(350);
 			  commandState = END;
 		  }
 		  else
