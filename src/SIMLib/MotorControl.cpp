@@ -1,4 +1,5 @@
 #include "MotorControl.h"
+#include "SIMLib.h"
 
 // Used pins for the motor shield. Shall always be fixed with this shield, so I included it in the library
 #define M_RIGHT_DIR 12
@@ -64,8 +65,11 @@ void MotorControl::driveLeft(int Speed, int Action) {
         digitalWrite(M_LEFT_BRK, HIGH);
         speedLeft = 0;
     }
+    // Show the new speed on the LEDS
     if (speedLeft != oldSpeed) {
+        detachInterrupt(digitalPinToInterrupt(21));
         Leds.showSpeedLeft(speedLeft);
+        attachInterrupt(digitalPinToInterrupt(21), Robot.kill, CHANGE);
     }
 }
 
@@ -89,8 +93,12 @@ void MotorControl::driveRight(int Speed, int Action) {
         digitalWrite(M_RIGHT_BRK, HIGH);
         speedRight = 0;
     }
+    
+    // Show the new speed on the LEDS
     if (speedRight != oldSpeed) {
+        detachInterrupt(digitalPinToInterrupt(21));
         Leds.showSpeedRight(speedRight);
+        attachInterrupt(digitalPinToInterrupt(21), Robot.kill, CHANGE);
     }
 }
 
@@ -149,41 +157,10 @@ void MotorControl::backward(int Speed = 127) {
   driveRight(Speed, BACKWARD);
   driveLeft(Speed, BACKWARD);
 }
-/* MotorControl.steer(int Direction, int Offset, int Speed)
- * Steer into a direction with base speed Speed and offset being the speed offset from the base speed.
- * For example, Direction RIGHT, Speed 127 and Offset 3 makes the Left motor turn with speed 127+3 and
- * the right on with speed 127-3
- * Direction = LEFT | RIGHT
- * Offset = The offset from the base speed, defaults to high enough to keep one motor still and the other *          at full speed
- * Speed = Base motor speed, defaults to 50%
- *
- */
-void MotorControl::steer(int Direction, int Offset = 1024, int Speed = 127) {
-    int wheelDir = FORWARD;
-    if (Speed < 0) {
-        Speed = -Speed;
-        wheelDir = BACKWARD;
-    }
-    Speed = min(255, Speed);
-    
-    int speedLeft;
-    int speedRight;
-    
-    if (Direction == LEFT) {
-        speedLeft  = Speed - Offset;
-        speedRight = Speed + Offset;
-    } else {
-        speedLeft  = Speed + Offset;
-        speedRight = Speed - Offset;
-    }
-    
-    speedLeft = min(255, max(0, speedLeft));
-    speedRight = min(255, max(0, speedRight));
-    
-    driveLeft(speedLeft, wheelDir);
-    driveRight(speedRight, wheelDir);
-}
 
+/* MotorControl.turn(int Direction, in Speed)
+ * Turn around it's center, default speed is 50%
+ */
 void MotorControl::turn(int Direction, int Speed = 127) {
     if (Speed < 0) {
         Speed = -Speed;

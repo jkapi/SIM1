@@ -2,7 +2,9 @@
 #define SIMLib_Leds_h
 
 #include "Arduino.h"
-#include <FastLED.h>
+#define FASTLED_ALLOW_INTERRUPTS 1
+#define FASTLED_INTERRUPT_RETRY_COUNT 3
+#include <FastLED.h>    
 
 #define PIN_LEDR   28
 #define PIN_LEDL   27

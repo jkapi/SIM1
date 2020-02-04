@@ -19,7 +19,8 @@ void LedControl::init() {
     
     FastLED.addLeds<WS2812B, PIN_LEDR, GRB>(leds_R, NUM_LEDS);
     FastLED.addLeds<WS2812B, PIN_LEDL, GRB>(leds_L, NUM_LEDS);
-    for (byte r = 0; r < NUM_LEDS * 2; r++) {
+    
+    for (byte r = 0; r < NUM_LEDS; r++) {
         byte g = (r + offset) % NUM_LEDS;
         byte b = (g + offset) % NUM_LEDS;
         byte w = (b + offset) % NUM_LEDS;
@@ -68,7 +69,7 @@ void LedControl::showSpeedLeft(int speed) {
     for (int i = 12; i < 16; i++) {
         leds_L[i] = CRGB::Green;
     }
-    int ledsOn = max(0, (speed >> 4) - 4);
+    int ledsOn = max(0, abs(speed) / 16 - 4);
     if (speed > 0) {
         for (int i = 16; i < 16 + ledsOn; i++) {
             leds_L[i] = CRGB::Green;

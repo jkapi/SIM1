@@ -7,7 +7,7 @@
 #define LEFT 1
 #define RIGHT 2
 
-#define FORWARD   1
+#define FORWARD   4
 #define BACKWARD -1
 #define GO        1
 #define BRAKE     0
@@ -21,7 +21,6 @@ class MotorControl
     void brake(byte Motor, bool Brake);
     void forward(int Speed = 127);
     void backward(int Speed = 127);
-    void steer(int Direction, int Offset = 1024, int Speed = 127);
     void turn(int Direction, int TurnSpeed = 127);
     
   private:

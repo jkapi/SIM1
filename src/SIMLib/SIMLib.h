@@ -9,15 +9,15 @@ class SIMLib
   public:
     SIMLib();
     void init();
-    void isCommand();
-	void handleCommand();
+    void driveParkour();
 	static void kill();
 	
   private:
 	bool readSensor(int pin);
 	void findLineRight();	
 	void findLineLeft();
-    void driveParkour();
+    void isCommand();
+	void handleCommand();
 	void handleLine();
 	void sensorsInit();
 		

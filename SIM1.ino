@@ -5,8 +5,7 @@ void setup() {
   Robot.init();
 }
 
-void loop()
-{
-  Robot.isCommand();
-  Robot.handleCommand();
-}
+void loop() {
+  // put your main code here, to run repeatedly:
+  Robot.driveParkour();
+} 
